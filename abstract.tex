@@ -3,24 +3,56 @@
 \usepackage[utf8]{inputenc}
 \usepackage{xspace}
 \usepackage{amsmath,amssymb}
+\usepackage{amsthm}
 \newcommand{\DD}{\mathbb D}
 \newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
 \DeclareMathOperator{\NN}{\mathbb N}
 \DeclareMathOperator{\C}{\mathcal C}
 \DeclareMathOperator{\laplace}{\Delta}
 \bibliographystyle{amsalpha}
-
+\newcommand{\abs}[1]{\left|#1\right|}
 \newcommand{\p}{\ensuremath{\mathcal P}\xspace}
 \newcommand{\np}{\ensuremath{\mathcal{NP}}\xspace}
+\newcommand{\cl}{\ensuremath{\mathcal{L}}\xspace}
+\newcommand{\nc}{\ensuremath{\mathcal{NC}}\xspace}
 \newcommand{\fp}{\ensuremath{\mathcal{FP}}\xspace}
 \newcommand{\sharpp}{\ensuremath{\# \mathcal{P}}\xspace}
 \newcommand{\pspace}{\ensuremath{ \mathcal{PSPACE}}\xspace}
 \newcommand{\cc}{\texttt{C++}\xspace}
 \newcommand{\irram}{\texttt{iRRAM}\xspace}
-
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 \begin{document}
 \section*{Analytic Functions and Small Complexity Classes}
-Analytic functions play a central role in analysis and have therefore also been investigated in Computable Analysis and Real Complexity Theory.
-Many operators that are hard in the general case map polynomial time computable functions to polynomial time computable functions when restricted to analytic functions.
+Kawamura and Cook's extension to TTE \cite{AkiACM} gives a reasonable model to  analyze the complexity of operators in analysis.
+Defining type-2 versions of the complexity classes \p, \np and \pspace, they could generalize many non-uniform hardness results into uniform statements.
+
+Analytic functions not only play a central role in analysis but also have been thoroughly studied in real computability and complexity theory.
+One reason being that many operations that are hard on general computable functions become feasible when only considering analytic functions.
+E.g., integration is \sharpp-hard in general \cite{MR748898,AkiACM} but polynomial-time computable for analytic functions \cite{MR1137517, Kawamura2012}.  
+
+Let $D \subseteq \CC$ be the closed unit disc and consider functions analytic on $D$.
+It is well known, that such a function is computable if and only if the power series around every computable point in its domain is computable \cite{MR1137517}.
+The same holds for polynomial-time computability.
+However, those results are non-uniform in the sense that the operations of obtaining the power series from a function and obtaining the function from the power series are non-computable \cite{Mueller95}.
+For power series around $0$ with radius of convergence strictly larger than $1$, we therefore use the following representation  as considered e.g. in \cite{Kawamura2012}.
+\begin{definition}
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for the power series $(a_k)_{k \in \NN}$ iff
+  $\varphi(0)$ encodes two integers $A$ and $k$,
+  the function $n \to \varphi(n+1)$ is a name for the sequence $(a_k)_{k \in \NN}$ and
+  $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$
+\end{definition}
+Under this representation many operators like evaluation, multiplication or differentiation of power series become polynomial time-computable \cite{Kawamura2012}.
+Additionally, solving ordinary differential equations with analytic right-hand side is polynomial time computable \cite{Kawamura10}.
+We want to refine those complexity results in terms of small complexity classes, i.e., complexity classes contained in \p.
+Such classes were recently defined by Kawamura and Ota \cite{Kawamura2014}.
+In particular they defined type-two anologues of the classes \cl and \nc and \p-completeness.
+\begin{theorem}
+  The operator Sum: $\mathcal{O} \times [-1,1] \to \RR, \text{Sum}(a)(x) = \sum_{n=0}^\infty a_nx^n$ is log-space computable.  
+\end{theorem}
+
 \bibliography{bib}{}
+
 \end{document}
+
