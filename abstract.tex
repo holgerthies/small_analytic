@@ -36,21 +36,32 @@ Let $D \subseteq \CC$ be the closed unit disc and consider functions analytic on
 It is well known, that such a function is computable if and only if the power series around every computable point in its domain is computable \cite{MR1137517}.
 The same holds for polynomial-time computability.
 However, those results are non-uniform in the sense that the operations of obtaining the power series from a function and obtaining the function from the power series are non-computable \cite{Mueller95}.
-For power series around $0$ with radius of convergence strictly larger than $1$, we therefore use the following representation  as considered e.g. in \cite{Kawamura2012}.
-\begin{definition}
-  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for the power series $(a_k)_{k \in \NN}$ iff
-  $\varphi(0)$ encodes two integers $A$ and $k$,
-  the function $n \to \varphi(n+1)$ is a name for the sequence $(a_k)_{k \in \NN}$ and
-  $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$
+A more reasonable representation for analytic functions is e.g. considered in \cite{Kawamura2012}.
+\begin{definition}\label{def:function}
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a complex analytic function $f:D \to \CC$ iff
+  $\varphi(0)$ is an integer $A$ encoded in binary,
+  $\varphi(1)$ is an integer $k$ encoded in unary,
+  the function $n \to \varphi(n+2)$ is a name for the function $f$,
+  $f$ extends analytically to $B(0, \sqrt[k]{2})$ and
+  $\abs(f(z)) \leq A$ for all $z \in B(0, \sqrt[k]{2})$
+
 \end{definition}
-Under this representation many operators like evaluation, multiplication or differentiation of power series become polynomial time-computable \cite{Kawamura2012}.
-Additionally, solving ordinary differential equations with analytic right-hand side is polynomial time computable \cite{Kawamura10}.
-We want to refine those complexity results in terms of small complexity classes, i.e., complexity classes contained in \p.
+Similarly one can define a representation for power series 
+\begin{definition}\label{def:powerseries}
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a power series $(a_k)_{k \in \NN}$ iff
+  $\varphi(0)$ is an integer $A$ encoded in binary,
+  $\varphi(1)$ is an integer $k$ encoded in unary,
+  the function $n \to \varphi(n+2)$ is a name for the sequence $(a_k)_{k \in \NN}$ and
+  $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \NN$.
+\end{definition}
+Those two representations can be shown to be polynomial time equivalent  and many operations on analytic functions like differentiation or parametric maximization become polynomial time computable in this representation \cite{Kawamura2012}.
+
+Our goal is to refine those results by considering complexity classes inside \p.
 Such classes were recently defined by Kawamura and Ota \cite{Kawamura2014}.
-In particular they defined type-two anologues of the classes \cl and \nc and \p-completeness.
-\begin{theorem}
-  The operator Sum: $\mathcal{O} \times [-1,1] \to \RR, \text{Sum}(a)(x) = \sum_{n=0}^\infty a_nx^n$ is log-space computable.  
-\end{theorem}
+In particular they defined type-two anologues of the classes \cl and \nc and a notion \p-completeness.
+Using their definition, we can show that the operator summing up power series (according to Definition \ref{def:powerseries}) as well as the operator evaluating the $d$-th derivative of a function given according Definition \ref{def:function} are in \cl.
+It follows that the two representations are logspace equivalent.
+We further consider other operations on analytic functions and how they relate to small complexity classes.
 
 \bibliography{bib}{}
 
