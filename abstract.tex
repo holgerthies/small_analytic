@@ -25,9 +25,9 @@
 \newtheorem{theorem}{Theorem}
 \begin{document}
 \section*{Analytic Functions and Small Complexity Classes}
-Kawamura and Cook's extension to TTE \cite{AkiACM} gives a reasonable model to  analyze the complexity of operators in analysis.
-Their main idea is to make time and space bounds also depend on the size of the oracle, by defining second order representations as length-monotone functions $\varphi: \Sigma^* \to \Sigma^*$.
-Computation of multifunctions between such representations is then defined in terms of oracle turing machines that can access $\phi$ as oracle.
+Kawamura and Cook's extension to Weihrauch's framework of representations \cite{Weihrauch} gives a reasonable model to analyze the complexity of operators in analysis \cite{AkiACM}.
+They define represented spaces by letting names of objects be length-monotone string-functions $\varphi: \Sigma^* \to \Sigma^*$. 
+Instead of TTE-machines, computation of multifunctions is then defined in terms of oracle turing machines that can access $\varphi$ as oracle.
 Since length-monotone functions allow a sound notion of size it is possible to define bounds in terms of second order polynomials depending on the input size as well as the size of the oracle.
 Defining type-2 versions of the complexity classes \p, \np and \pspace, they generalized many non-uniform hardness results into uniform statements.
 
@@ -35,10 +35,9 @@ Using this model, it can be shown that many important operators are in general h
 For example, it can be shown that integration is \sharpp-hard in general \cite{MR748898,AkiACM}.
 However, restricting to only analytic functions many of these operators allow more feasible solutions, see e.g. \cite{MR1137517, Kawamura2012}.  
 Therefore analytic functions have been thoroughly studied in real computability and complexity theory and also have gained attention for efficient implementations of algorithms in exact real arithmetic \cite{DBLP:journals/corr/abs-1006-0401}.
-
 Let $D \subseteq \CC$ be the closed unit disc and consider functions analytic on $D$.
 It is well known, that such a function is computable if and only if the power series around every computable point of its domain is computable \cite{MR1005942}.
-The same holds for polynomial-time computability. 
+The same holds for polynomial-time computability \cite{MR1137517}. 
 
 However, those results are non-uniform in the sense that the operations of obtaining the power series from a function and obtaining the function from the power series are non-computable \cite{Mueller87}.
 If, on the other hand, some additional information about the function is provided, those statements can be transformed into uniform algorithm.
