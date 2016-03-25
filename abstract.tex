@@ -27,20 +27,20 @@
 \section*{Analytic Functions and Small Complexity Classes}
 Kawamura and Cook's extension to Weihrauch's framework of representations \cite{Weihrauch} gives a reasonable model to analyze the complexity of operators in analysis \cite{AkiACM}.
 They define represented spaces by letting names of objects be length-monotone string-functions $\varphi: \Sigma^* \to \Sigma^*$. 
-Instead of TTE-machines, computation of multifunctions is then defined in terms of oracle turing machines that can access $\varphi$ as oracle.
+Computation of multifunctions is then defined in terms of oracle turing machines that can access $\varphi$ as oracle instead of using TTE machines.
 Since length-monotone functions allow a sound notion of size it is possible to define bounds in terms of second order polynomials depending on the input size as well as the size of the oracle.
 Defining type-2 versions of the complexity classes \p, \np and \pspace, they generalized many non-uniform hardness results into uniform statements.
 
 Using this model, it can be shown that many important operators are in general hard from the viewpoint of real complexity theory. 
 For example, it can be shown that integration is \sharpp-hard in general \cite{MR748898,AkiACM}.
-However, restricting to only analytic functions many of these operators allow more feasible solutions, see e.g. \cite{MR1137517, Kawamura2012}.  
-Therefore analytic functions have been thoroughly studied in real computability and complexity theory and also have gained attention for efficient implementations of algorithms in exact real arithmetic \cite{DBLP:journals/corr/abs-1006-0401}.
+Nevertheless, restricting to only analytic functions many of these operators allow more feasible solutions, see e.g. \cite{MR1137517, Kawamura2012}.  
+Therefore, analytic functions have been thoroughly studied in real computability and complexity theory and also have gained attention for efficient implementations of algorithms in exact real arithmetic \cite{DBLP:journals/corr/abs-1006-0401}.
+
 Let $D \subseteq \CC$ be the closed unit disc and consider functions analytic on $D$.
 It is well known, that such a function is computable if and only if the power series around every computable point of its domain is computable \cite{MR1005942}.
 The same holds for polynomial-time computability \cite{MR1137517}. 
-
-However, those results are non-uniform in the sense that the operations of obtaining the power series from a function and obtaining the function from the power series are non-computable \cite{Mueller87}.
-If, on the other hand, some additional information about the function is provided, those statements can be transformed into uniform algorithm.
+Those results, however, are non-uniform in the sense that the operations of obtaining the power series from a function and obtaining the function from the power series are non-computable \cite{Mueller87}.
+Nevertheless, if some additional information about the function is provided, the statements can be transformed into uniform algorithms.
 A more reasonable representation for analytic functions that contains this additional information can be given as follows: 
 \begin{definition}\label{def:function}
   A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a complex analytic function $f:D \to \CC$ iff
@@ -48,7 +48,7 @@ A more reasonable representation for analytic functions that contains this addit
   $\varphi(1)$ is an integer $k$ encoded in unary,
   the function $n \to \varphi(n+2)$ is a name for the function $f$,
   $f$ extends analytically to $B(0, \sqrt[k]{2})$ and
-  $\abs(f(z)) \leq A$ for all $z \in B(0, \sqrt[k]{2})$
+  $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
 
 \end{definition}
 Similarly one can define a representation for power series 
@@ -59,23 +59,23 @@ Similarly one can define a representation for power series
   the function $n \to \varphi(n+2)$ is a name for the sequence $(a_k)_{k \in \NN}$ and
   $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \NN$.
 \end{definition}
-Both representations can be shown to be polynomial time equivalent \cite{Kawamura2012}.
-Those (or very similar) representations have been considered many times e.g. in \cite{Mueller95, Kawamura2012,DBLP:journals/corr/PaulyS15,DBLP:journals/jsc/Hoeven05}.
+Under the identification of analytic functions with their power series, the above representations are polynomial time equivalent \cite{Kawamura2012}.
+These (or very similar) representations have been considered many times e.g. in \cite{Mueller95, Kawamura2012,DBLP:journals/corr/PaulyS15,DBLP:journals/jsc/Hoeven05}.
 Using this representation, not only evaluation but also many other operations on analytic functions like differentiation or parametric maximization become not only uniformly computable but also polynomial time computable \cite{Kawamura2012}.
 Further, using a similar representation, it can be shown that solving Initial Value Problems for Ordinary Differential Equations where the right-hand side is given by an analytic function can be solved in polynomial time \cite{moiske1993solving}.
 
 Applying operators to power series usually involves modifications on a large number of coefficients at the same time.
-Thus, it is reasonable to ask which operations on analytic could be efficiently parallelized.
-In classical complexity theory, efficient parallelization is strongly connected to the complexity class \cl of problems decidable in logaritghmic space and \nc, the class of problems decidable by circuits of polynomial size and polylogarithmic depth.
+Thus, it is reasonable to ask which operations on analytic can be efficiently parallelized.
+In classical complexity theory, efficient parallelization is strongly connected to the complexity classes \cl of problems decidable in logarithmic space and \nc of problems decidable by circuits of polynomial size and polylogarithmic depth.
 A generalization of this in the sense of continuous problems was recently done by Kawamura and Ota \cite{Kawamura2014}.
 In particular, they define type-two analogues of the classes \cl and \nc and a notion of \p-completeness, to classify problems that most likely can not benefit much from parallelization.
 
 Using their framework, we generalize the polynomial time results on analytic functions and investigate which operations are eligible for efficient parallelization and which most likely are not.
 
-We can show that the operator summing up power series (according to Definition \ref{def:powerseries}) as well as the operator evaluating the $d$-th derivative of a function given according Definition \ref{def:function} are in \cl.
+We show that the operator summing up power series (according to Definition \ref{def:powerseries}) as well as the operator evaluating the $d$-th derivative of a function given according Definition \ref{def:function} are in \cl.
 It follows that the two representations are logspace equivalent.
-
-We further investigate the complexity of other operations on analytic functions, some being in small complexity classes while others will be shown to be \p-complete.
+In particular, it follows that composition of power series can be done in logspace which can not easily be seen from the usual algorithms.
+Other operations, like solving ordinary differential equations, are expected to be \p-complete and will be subject to future investigations.
 
 
 \bibliography{bib}{}
