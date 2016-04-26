@@ -1,0 +1,283 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,handout]{beamer}
+\usetheme{Darmstadt}
+\usepackage{etex}
+\providecommand\thispdfpagelabel[1]{}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{graphics}
+\usepackage{framed}
+\usepackage{etex}
+\usepackage[all]{xy}
+\usepackage{svg}
+\usepackage{xspace,listings,ulem,tikz}
+\usepackage[outline]{contour}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{hhline}
+\usepackage{pgffor}
+\usepackage[square,sort,comma,numbers]{natbib}
+\usepackage{CJKutf8}
+\setbeamertemplate{footline}[frame number]
+\tikzset{
+    onslide/.code args={<#1>#2}{% http://tex.stackexchange.com/a/6155/16595
+        \only<#1>{\pgfkeysalso{#2}}
+    },
+    hideshow/.style args={<#1><#2>#3}{%
+        onslide=<#1>{move to},
+        onslide=<#2>{#3}
+    }
+}
+\lstset{
+         basicstyle=\footnotesize\ttfamily, % Standardschrift
+         %numbers=left,               % Ort der Zeilennummern
+         numberstyle=\tiny,          % Stil der Zeilennummern
+         %stepnumber=2,               % Abstand zwischen den Zeilennummern
+         numbersep=5pt,              % Abstand der Nummern zum Text
+         tabsize=2,                  % Groesse von Tabs
+         extendedchars=true,         %
+         breaklines=true,            % Zeilen werden Umgebrochen
+         keywordstyle=\color{red},
+ %        keywordstyle=[1]\textbf,    % Stil der Keywords
+ %        keywordstyle=[2]\textbf,    %
+ %        keywordstyle=[3]\textbf,    %
+ %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+         %stringstyle=\color{white}\ttfamily, % Farbe der String
+         showspaces=false,           % Leerzeichen anzeigen ?
+         showtabs=false,             % Tabs anzeigen ?
+         xleftmargin=3pt,
+         framexleftmargin=3pt,
+         framexrightmargin=1pt,
+         framexbottommargin=3pt,
+         language=C++,
+         %backgroundcolor=\color{lightgray},
+         showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+ }
+
+ \usetikzlibrary{arrows}
+ \usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+\beamertemplatenavigationsymbolsempty
+\newcommand{\N}{\ensuremath{\mathbb{N}}} 
+\newcommand{\R}{\ensuremath{\mathbb{R}}} 
+\newcommand{\RR}{\ensuremath{\mathbb{R}}} 
+\newcommand{\C}{\ensuremath{\mathbb{C}}} 
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}} 
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}} 
+\newcommand{\D}{\ensuremath{\mathbb{D}}}
+\newcommand{\lb}{\mathrm{lb}}
+\newcommand{\dy}{\mathrm{dy}}
+\newcommand{\cc}{\texttt{C++}\xspace}
+\newcommand{\bin}{\mathrm{bin}}
+\newcommand{\cl}{\ensuremath{\mathcal{L}}\xspace}
+\newcommand{\nc}{\ensuremath{\mathcal{NC}}\xspace}
+\newcommand{\fp}{\ensuremath{\mathcal{FP}}\xspace}
+\newcommand{\irram}{\texttt{iRRAM}\xspace}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\sharpp}{\ensuremath{\#\mathcal P}\xspace}
+\newcommand{\sharppu}{\ensuremath{\#{\mathcal P}_1}\xspace}
+\newcommand{\sigmas}{\ensuremath{\Sigma^{**}}}
+  \newcommand{\complex}{\code{COMPLEX}\xspace}
+	\newcommand{\abs}[1]{\left|#1\right|}
+  \newcommand{\temp}{\textcolor{red}}
+  \newcommand{\seq}{\mathbf}
+\newcommand{\fpu}{\ensuremath{\mathcal{FP}_1}\xspace}
+\newcommand{\fpt}{\ensuremath{\mathcal{FP}^2}\xspace}
+\DeclareMathOperator{\dom}{\mathrm{dom}}
+\newtheorem{conjecture}{Conjecture} 
+\newtheorem{representation1}{Representation 1} 
+\newtheorem{representation1b}{Representation 1'} 
+\newtheorem{representation2}{Representation 2} 
+\title[Analytic Functions]{Analytic Functions and Small Complexity Classes}
+\author[ H. Thies]{
+		Holger Thies \footnote{Joint work with Florian Steinberg}
+}
+\institute[The University of Tokyo]{
+  The University of Tokyo
+}
+\begin{document}
+\setbeamercolor{note}{fg=black,bg=lightgray} 
+\date{June xx, 2016}
+\frame{
+\titlepage
+}
+\section{Second Order Complexity}
+\subsection{Definition}
+\frame{
+  \frametitle{Second Order Complexity Theory}
+  %% \begin{itemize}
+  %% \item Denote the set of length-monotone functions as $\Sigma^{**}$
+  %% \item Use elements of $\Sigma^{**}$ to encode objects
+  %% \item $\varphi \in \Sigma^{**}$ is given as an oracle
+  %% \end{itemize}
+  \begin{minipage}{.45\textwidth}
+    \begin{tikzpicture}
+      %x
+      \draw (0,0) rectangle (3,-2);
+      \node at (1.5,-1) {Oracle $\varphi$};
+      \draw (1,-2) -- (1,-2.2);
+      \draw[-triangle 90] (1,-2.5) -- (1,-2.2);
+      \node at (.5,-2.25) {q};
+      \draw[-triangle 90] (2,-2) -- (2,-2.3);
+      \draw (2,-2.3) -- (2,-2.5);
+      \node at (2.5,-2.25) {$\varphi(q)$};
+      %f
+      \draw[thick] (0,-2.5) rectangle (3,-4.5);
+      \node at (1.5,-3.5) {$F$};
+      \draw (1,-4.5) -- (1,-4.7);
+      \draw[-triangle 90] (1,-5) -- (1,-4.7);
+      \node at (.5,-4.75) {$x$};
+      \draw[-triangle 90] (2,-4.5) -- (2,-4.8);
+      \draw (2,-4.8) -- (2,-5);
+      \node at (2.5,-4.75) {$F(x)$};
+      %f(x)
+    \end{tikzpicture}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{.47\textwidth}
+  \begin{displaymath}
+    \xymatrix@C=8em@R=8em{
+        \Sigma^{**} \ar[r]^F \ar[d]_\alpha & \Sigma^{**} \ar[d]^{\beta} \\
+        X \ar[r]_{f}       & Y }
+  \end{displaymath} 
+  \end{minipage}
+}
+\begin{frame}
+  \frametitle{Second Order Complexity Theory}
+  \begin{itemize}
+  \item Consider representation $\varphi : \sigmas \to \sigmas$
+  \item Define $\abs{\varphi} : \N \to \N$ by $\abs{\varphi}(\abs{u}) = \abs{\varphi(u)}$
+   \item Bound running time by second order polynomials $P(\abs{\varphi})(\abs{x})$
+   \item Example: $P(L,n) = 2L(L(L(n)^4+2L(n))+2)+n+10$
+   \item \fpt is the class of multi-functions $f: \sigmas \to \sigmas$ computed in second-order polynomial time
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Example}
+  Define a $\delta_\Box$-name of a function $f \in C[0,1]$ as a pair $<\mu, \phi>$ where $\mu$ encodes the radius of convergence (in unary) and $\phi$ is such that $\abs{\phi(d, 0^n)-f(d)} \leq 2^{-n}$ for all $d \in \D \cap [0,1]$
+  \end{frame}
+\section{Analytic Functions}
+\begin{frame}
+\frametitle{Complexity of Operators}
+\begin{fact}
+For general polynomial time computable functions, many important operators have been shown to be computationally hard.\\
+For example
+\pause
+\begin{itemize}[<+->]
+\item Polynomial time computable functions may have noncomputable derivatives. (Ko 1983)
+\item Parametric maximization is NP-hard. (Ko/Friedman (1982))
+\item Integration is \#P-hard. (Friedman (1984))
+\end{itemize}
+\end{fact}
+\pause
+Thus, we can not expect to have efficient algorithms for those operators unless we restrict the possible functions.
+\end{frame}
+\begin{frame}
+\frametitle{Analytic Function}
+An analytic function is a function locally given by a complex power series.\\
+\begin{definition}[Analytic Function]
+% \begin{columns}
+% \begin{column}{0.4\linewidth}
+$f : D \to \C $, $D \subseteq \C$ is analytic if for any $x_0 \in D$ the Taylor-series
+$$ T(x) := \sum^\infty_{n=0} a_n(x-x_0)^n$$
+converges to $f(x)$ for $x$ in a neighborhood of $x_0$.  
+\end{definition}
+\end{frame}
+\begin{frame}
+\frametitle{Some non-uniform results}
+
+$$a_m =\frac{f^{(m)}(x_0)}{m!} 
+, \,\, f(x) = \sum_{m=0}^\infty a_m(x-x_0)^k \,\ \text{ for } x \in B(x_0,R)
+$$
+\vfill
+\begin{theorem}[Pour-El, Richards, Ko, Friedman, M\"uller (1987/1989)]
+$f$ is (polytime) computable iff $(a_m)_{m \in \N}$ is.
+\end{theorem}
+ \onslide<2->{
+From that polynomial time computability of the derivative and the anti-derivative of a function follows immediately.
+}
+\end{frame}
+\begin{frame}
+\frametitle{Some non-uniform results}
+$$a_m =\frac{f^{(m)}(0)}{m!} 
+, \,\, f(x) = \sum_{m=0}^\infty a_mx^k \,\ \text{ for } x \in B(0,R)
+$$
+\vfill
+\begin{theorem}[M\"uller (1995)]
+\begin{itemize}
+\item The operator $f \to (a_m)_{m \in \N}$ is not computable.
+\item The evaluation operator $((a_m)_{m \in \N},x) \to f(x) $ is not computable.
+\end{itemize}
+\end{theorem}
+\pause
+However, if we supply some additional (discrete) information those operators become computable.
+\end{frame}
+\subsection{Representing power series}
+\begin{frame}
+\frametitle{How to represent analytic functions?}
+\begin{lemma}
+  Let $f : \overline B(0,1) \to \R$ be real analytic and $(a_n)_{n \in \N}$ its power series around $0$.\\
+  Then there exists an $k,A \in \N$ such that 
+  \begin{enumerate}
+  \item $\sqrt[k]{2}$ is a lower bound on the radius of convergence
+  \item $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$
+  \end{enumerate}
+\end{lemma}
+\pause
+$A$ and $k$ can be used to make a tail estimate on
+$$ \left | \sum_{n \geq N} a_n z^n \right |  $$
+\pause
+The coefficients for the power series can be shown to be computable if some additional information is provided.
+\end{frame}
+\begin{frame}
+\frametitle{How to represent analytic functions?}
+This leads to the following type-2 representations for analytic functions.
+\begin{representation1}
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:D \to \R$ iff
+  \begin{enumerate}
+  \item $\varphi(0)$ is an integer $A$ encoded in binary,
+  \item $\varphi(1)$ is an integer $k$ encoded in unary,
+  \item The function $n \to \varphi(n+2)$ is a name for the function $f$
+  \item $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
+  \end{enumerate}
+
+\end{representation1}
+
+\begin{representation2}
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a power series $(a_k)_{k \in \N}$ iff
+  \begin{enumerate}
+  \item $\varphi(0)$ is an integer $A$ encoded in binary
+  \item $\varphi(1)$ is an integer $k$ encoded in unary
+  \item the function $n \to \varphi(n+2)$ is a name for the sequence $(a_k)_{k \in \N}$ and
+  $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
+  \end{enumerate}
+\end{representation2}
+\end{frame}
+\begin{frame}[<+->]
+\frametitle{Analytic Functions and Computational Complexity}
+\begin{theorem}[Kawamura, R\"osnick, M\"uller, Ziegler (2013)]
+  The previous two representations are polynomial-time equivalent.
+  Further the following operations can be performed in polynomial time
+\begin{enumerate}
+\item evaluation
+\item addition and multiplication
+\item differentiation and anti-differentiation
+\item parametric maximization
+\end{enumerate}
+\end{theorem}
+\end{frame}
+\subsection{Definition}
+\section{Small Complexity Classes}
+\subsection{Definition}
+\begin{frame}
+  \begin{itemize}
+  \item How about parallelization of algorithms?
+  \item In classical complexity theory the classes \cl and \nc correspond to effectively parallelizable functions
+  \item Kawamura and Ota recently presented type-2 versions of those classes
+  \end{itemize}
+\end{frame}
+\section{Results}
+\subsection{Results}
+\end{document}
