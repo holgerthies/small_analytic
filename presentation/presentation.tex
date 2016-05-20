@@ -99,19 +99,26 @@
 }
 \begin{document}
 \setbeamercolor{note}{fg=black,bg=lightgray} 
-\date{June xx, 2016}
+\date{June 15, 2016}
 \frame{
 \titlepage
 }
 \section{Second Order Complexity}
 \subsection{Definition}
-\frame{
-  \frametitle{Second Order Complexity Theory}
-  %% \begin{itemize}
-  %% \item Denote the set of length-monotone functions as $\Sigma^{**}$
-  %% \item Use elements of $\Sigma^{**}$ to encode objects
-  %% \item $\varphi \in \Sigma^{**}$ is given as an oracle
-  %% \end{itemize}
+\begin{frame}
+  \frametitle{Representations}
+  A representation for a set $X$ is a partial surjective function $\rho: \Sigma^{**} \to X$.
+  \pause
+  \vfill
+  \begin{minipage}{.37\textwidth}
+  \begin{displaymath}
+    \xymatrix{
+        \Sigma^{**} \ar[r]^F \ar[d]_\alpha & \Sigma^{**} \ar[d]^{\beta} \\
+        X \ar[r]_{f}       & Y }
+  \end{displaymath} 
+  \end{minipage}
+  \hfill
+  \pause
   \begin{minipage}{.45\textwidth}
     \begin{tikzpicture}
       %x
@@ -119,31 +126,23 @@
       \node at (1.5,-1) {Oracle $\varphi$};
       \draw (1,-2) -- (1,-2.2);
       \draw[-triangle 90] (1,-2.5) -- (1,-2.2);
-      \node at (.5,-2.25) {q};
+      \node at (.5,-2.25) {r};
       \draw[-triangle 90] (2,-2) -- (2,-2.3);
       \draw (2,-2.3) -- (2,-2.5);
-      \node at (2.5,-2.25) {$\varphi(q)$};
+      \node at (2.5,-2.25) {$\varphi(r)$};
       %f
       \draw[thick] (0,-2.5) rectangle (3,-4.5);
       \node at (1.5,-3.5) {$F$};
       \draw (1,-4.5) -- (1,-4.7);
       \draw[-triangle 90] (1,-5) -- (1,-4.7);
-      \node at (.5,-4.75) {$x$};
+      \node at (.5,-4.75) {$q$};
       \draw[-triangle 90] (2,-4.5) -- (2,-4.8);
       \draw (2,-4.8) -- (2,-5);
-      \node at (2.5,-4.75) {$F(x)$};
+      \node at (2.8,-4.75) {$F(\varphi)(q)$};
       %f(x)
     \end{tikzpicture}
   \end{minipage}
-  \hfill
-  \begin{minipage}{.47\textwidth}
-  \begin{displaymath}
-    \xymatrix@C=8em@R=8em{
-        \Sigma^{**} \ar[r]^F \ar[d]_\alpha & \Sigma^{**} \ar[d]^{\beta} \\
-        X \ar[r]_{f}       & Y }
-  \end{displaymath} 
-  \end{minipage}
-}
+  \end{frame}
 \begin{frame}
   \frametitle{Second Order Complexity Theory}
   \begin{itemize}
@@ -156,7 +155,13 @@
 \end{frame}
 \begin{frame}
   \frametitle{Example}
-  Define a $\delta_\Box$-name of a function $f \in C[0,1]$ as a pair $<\mu, \phi>$ where $\mu$ encodes the radius of convergence (in unary) and $\phi$ is such that $\abs{\phi(d, 0^n)-f(d)} \leq 2^{-n}$ for all $d \in \D \cap [0,1]$
+  Define a $\rho_\R$-name of $x \in \RR$ by
+  $\rho_\R(0^n)$ encodes a $d \in \D$ such that $\abs{d-x} \leq 2^{-n} $. 
+  Note, that $(\rho_\R|^{[0,1]}, \rho_\R)$-\fpt equals the polynomial-time computable real functions as defined by Ko.
+\end{frame}
+\begin{frame}
+  \frametitle{Example}
+  Define a $\delta_\Box$-name of a function $f \in C[0,1]$ as a pair $<\mu, \phi>$ where $\mu$ encodes the modulus of convergence (in unary) and $\phi$ is such that $\abs{\phi(d, 0^n)-f(d)} \leq 2^{-n}$ for all $d \in \D \cap [0,1]$
   \end{frame}
 \section{Analytic Functions}
 \begin{frame}
@@ -207,8 +212,8 @@ $$
 \vfill
 \begin{theorem}[M\"uller (1995)]
 \begin{itemize}
-\item The operator $f \to (a_m)_{m \in \N}$ is not computable.
-\item The evaluation operator $((a_m)_{m \in \N},x) \to f(x) $ is not computable.
+\item The operator $f \mapsto (a_m)_{m \in \N}$ is not computable.
+\item The evaluation operator $((a_m)_{m \in \N},x) \mapsto f(x) $ is not computable.
 \end{itemize}
 \end{theorem}
 \pause
@@ -228,12 +233,9 @@ However, if we supply some additional (discrete) information those operators bec
 \pause
 $A$ and $k$ can be used to make a tail estimate on
 $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
-\pause
-The coefficients for the power series can be shown to be computable if some additional information is provided.
 \end{frame}
 \begin{frame}
 \frametitle{How to represent analytic functions?}
-This leads to the following type-2 representations for analytic functions.
 \begin{representation1}
   A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:D \to \R$ iff
   \begin{enumerate}
@@ -244,7 +246,9 @@ This leads to the following type-2 representations for analytic functions.
   \end{enumerate}
 
 \end{representation1}
-
+\end{frame}
+\begin{frame}
+\frametitle{How to represent analytic functions?}
 \begin{representation2}
   A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a power series $(a_k)_{k \in \N}$ iff
   \begin{enumerate}
@@ -272,12 +276,42 @@ This leads to the following type-2 representations for analytic functions.
 \section{Small Complexity Classes}
 \subsection{Definition}
 \begin{frame}
+  \frametitle{Small Complexity Classes}
   \begin{itemize}
   \item How about parallelization of algorithms?
   \item In classical complexity theory the classes \cl and \nc correspond to effectively parallelizable functions
   \item Kawamura and Ota recently presented type-2 versions of those classes
   \end{itemize}
 \end{frame}
-\section{Results}
+\begin{frame}
+ \frametitle{Logspace Computability} 
+ For logspace-computability we want the space the machine uses to be bound by $\log(P(\abs{\phi})(\abs{u}))$.\\
+ (Read-only) input and (write-only) output tapes do not count towards the space-bound.\\ 
+ What about the query tape?\\
+ \pause
+ The machine needs to be able to make queries of polynomial length - otherwise only constant functions can be computed.\\
+ \pause
+ Ko defines logarithmic-space computable real-functions by not counting the query and answer tapes towards the space limit.\\
+ This works for when only dealing with queries of the form $0^n$ but for general oracle functions $\phi$ it would allow iterating the function $\phi$ polynomially many times.
+\end{frame}
+\begin{frame}
+\frametitle{The stack model}
+\end{frame}
+\section{Complexity of Analytic Functions}
 \subsection{Results}
+\frametitle{How to represent analytic functions?}
+\begin{frame}
+\begin{representation1}
+  Integers $A$, $k$, and name for function $f$.\\
+  $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
+\end{representation1}
+\begin{representation2}
+  Integers $A$, $k$ and the series sequence $(a_k)_{k \in \N}$.\\
+  $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
+\end{representation2}
+Those two representations are log-space equivalent.
+\end{frame}
+\begin{frame}
+  
+\end{frame}
 \end{document}
