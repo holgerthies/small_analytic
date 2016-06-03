@@ -1,4 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,handout]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table]{beamer}
 \usetheme{Darmstadt}
 \usepackage{etex}
 \providecommand\thispdfpagelabel[1]{}
@@ -84,7 +84,12 @@
   \newcommand{\temp}{\textcolor{red}}
   \newcommand{\seq}{\mathbf}
 \newcommand{\fpu}{\ensuremath{\mathcal{FP}_1}\xspace}
-\newcommand{\fpt}{\ensuremath{\mathcal{FP}^2}\xspace}
+\newcommand{\fpt}{\ensuremath{\text{FP}^2}\xspace}
+\newcommand{\fpspacet}{\ensuremath{\text{FPSPACE}^2}\xspace}
+\newcommand{\sharpt}{\ensuremath{\text{\#P}^2}\xspace}
+\newcommand{\pt}{\ensuremath{\text{P}^2}\xspace}
+\newcommand{\npt}{\ensuremath{\text{NP}^2}\xspace}
+\newcommand{\pspacet}{\ensuremath{\text{PSPACE}^2}\xspace}
 \DeclareMathOperator{\dom}{\mathrm{dom}}
 \newtheorem{conjecture}{Conjecture} 
 \newtheorem{representation1}{Representation 1} 
@@ -144,25 +149,124 @@
   \end{minipage}
   \end{frame}
 \begin{frame}
-  \frametitle{Second Order Complexity Theory}
+  \frametitle{Type-2 Complexity Theory}
   \begin{itemize}
+  \item Let $\sigmas$ be the set of length-monotone string-functions, i.e. $\abs{x} \leq \abs{y} \Rightarrow \abs{\varphi(x)} \leq \abs{\varphi(y)}$
   \item Consider representation $\varphi : \sigmas \to \sigmas$
   \item Define $\abs{\varphi} : \N \to \N$ by $\abs{\varphi}(\abs{u}) = \abs{\varphi(u)}$
    \item Bound running time by second order polynomials $P(\abs{\varphi})(\abs{x})$
    \item Example: $P(L,n) = 2L(L(L(n)^4+2L(n))+2)+n+10$
-   \item \fpt is the class of multi-functions $f: \sigmas \to \sigmas$ computed in second-order polynomial time
+   \item  Can define complexity classes \fpt, \sharpt and \fpspacet 
+   \item  Can also define complexity classes \pt, \npt and \pspacet by considering functions $\varphi : \sigmas \to (\Sigma^* \to \{0,1\})$
+     \item Type-2 classes are easy to seperate
+  
   \end{itemize}
 \end{frame}
 \begin{frame}
   \frametitle{Example}
   Define a $\rho_\R$-name of $x \in \RR$ by
-  $\rho_\R(0^n)$ encodes a $d \in \D$ such that $\abs{d-x} \leq 2^{-n} $. 
+  $\rho_\R(0^n)$ encodes a $d \in \D$ such that $\abs{d-x} \leq 2^{-n} $.
+		\begin{figure}
+		\centering
+    \vfill
+		\begin{tikzpicture}
+				\path (0,0) rectangle (3.5,-2.7);
+			%x
+				\draw[thick] (0,0) rectangle (4,-2);
+				\node at (2.0,-1) {$x \in \RR$};
+				\draw[-triangle 90] (.5,-2.5) -- (.5,-2.0);
+				\node at (.5,-2.65) {$0^n$};
+				\draw[-triangle 90] (3.5,-2.0) -- (3.5,-2.5);
+				\node at (3.55,-2.65) {$2^{-n}$ approx. of $x$};
+				%\node<4-> at (2.85,-2.25) {$d_{n,i}$};
+				%\node<4-> at (1.5,-1) {$(a_i)$};
+				%\draw<4-> (1,-2) -- (1,-2.2);
+				%\draw<4->[-triangle 90] (1,-2.5) -- (1,-2.2);
+				%\node<4-> at (1.25,-2.25) {$1^i$};
+		\end{tikzpicture}
+		\end{figure}
+
   Note, that $(\rho_\R|^{[0,1]}, \rho_\R)$-\fpt equals the polynomial-time computable real functions as defined by Ko.
 \end{frame}
 \begin{frame}
   \frametitle{Example}
   Define a $\delta_\Box$-name of a function $f \in C[0,1]$ as a pair $<\mu, \phi>$ where $\mu$ encodes the modulus of convergence (in unary) and $\phi$ is such that $\abs{\phi(d, 0^n)-f(d)} \leq 2^{-n}$ for all $d \in \D \cap [0,1]$
+
+		\begin{figure}
+		\centering
+    \vfill
+		\begin{tikzpicture}
+				\path (0,0) rectangle (4.5,-2.7);
+			%x
+				\draw[thick] (0,0) rectangle (4,-2);
+				\node at (2.0,-1) {$f \in C[0,1]$};
+				\draw[-triangle 90] (.2,-2.5) -- (.2,-2.0);
+				\node at (.2,-2.65) {$0^m$};
+				\draw[-triangle 90] (1.0,-2.0) -- (1.0,-2.5);
+				\node at (1.0,-2.65) {$0^{\mu(m)}$};
+				\draw[-triangle 90] (2.7,-2.5) -- (2.7,-2.0);
+				\node at (2.7,-2.65) {$d$};
+				\draw[-triangle 90] (3.2,-2.5) -- (3.2,-2.0);
+				\node at (3.2,-2.65) {$0^n$};
+				\draw[-triangle 90] (3.7,-2.0) -- (3.7,-2.5);
+				\node at (3.7,-2.65) {$q$};
+				%\node<4-> at (2.85,-2.25) {$d_{n,i}$};
+				%\node<4-> at (1.5,-1) {$(a_i)$};
+				%\draw<4-> (1,-2) -- (1,-2.2);
+				%\draw<4->[-triangle 90] (1,-2.5) -- (1,-2.2);
+				%\node<4-> at (1.25,-2.25) {$1^i$};
+		\end{tikzpicture}
+		\end{figure}
+                
   \end{frame}
+\section{Small Complexity Classes}
+\subsection{Definition}
+\begin{frame}
+  \frametitle{Small Complexity Classes}
+  \centering
+  \foreach \x in {1,...,3} {
+    \only<\x>{
+      \includesvg[width=1.1\textwidth]{complexity\x}
+    }
+  }
+\end{frame}
+\begin{frame}
+  \frametitle{Small Complexity Classes}
+  \centering
+  \foreach \x in {1,...,5} {
+    \only<\x>{
+      \includesvg[width=1.0\textwidth]{logspace\x}
+    }
+  }
+\end{frame}
+%% \begin{frame}
+%%  \frametitle{Logspace Computability} 
+%%  For logspace-computability we want the space the machine uses to be bound by $\log(P(\abs{\phi})(\abs{u}))$.\\
+%%  (Read-only) input and (write-only) output tapes do not count towards the space-bound.\\ 
+%%  What about the query tape?\\
+%%  \pause
+%%  The machine needs to be able to make queries of polynomial length - otherwise only constant functions can be computed.\\
+%%  \pause
+%%  Ko defines logarithmic-space computable real-functions by not counting the query and answer tapes towards the space limit.\\
+%%  This works for when only dealing with queries of the form $0^n$ but for general oracle functions $\phi$ it would allow iterating the function $\phi$ polynomially many times.
+%% \end{frame}
+\begin{frame}
+\frametitle{The stack model (Kawamura and Ota)}
+  \centering
+  \foreach \x in {1,...,5} {
+    \only<\x>{
+      \includesvg[width=1.0\textwidth]{stackmodel\x}
+    }
+    }
+\end{frame}
+\begin{frame}
+\frametitle{Example}
+The function $\text{Apply}: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable. 
+\end{frame}
+\begin{frame}
+\frametitle{Example}
+The function $\text{Apply}: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable. 
+\end{frame}
 \section{Analytic Functions}
 \begin{frame}
 \frametitle{Complexity of Operators}
@@ -237,7 +341,7 @@ $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
 \begin{frame}
 \frametitle{How to represent analytic functions?}
 \begin{representation1}
-  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:D \to \R$ iff
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:\bar B(0,1) \to \R$ iff
   \begin{enumerate}
   \item $\varphi(0)$ is an integer $A$ encoded in binary,
   \item $\varphi(1)$ is an integer $k$ encoded in unary,
@@ -273,34 +377,11 @@ $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
 \end{theorem}
 \end{frame}
 \subsection{Definition}
-\section{Small Complexity Classes}
-\subsection{Definition}
-\begin{frame}
-  \frametitle{Small Complexity Classes}
-  \begin{itemize}
-  \item How about parallelization of algorithms?
-  \item In classical complexity theory the classes \cl and \nc correspond to effectively parallelizable functions
-  \item Kawamura and Ota recently presented type-2 versions of those classes
-  \end{itemize}
-\end{frame}
-\begin{frame}
- \frametitle{Logspace Computability} 
- For logspace-computability we want the space the machine uses to be bound by $\log(P(\abs{\phi})(\abs{u}))$.\\
- (Read-only) input and (write-only) output tapes do not count towards the space-bound.\\ 
- What about the query tape?\\
- \pause
- The machine needs to be able to make queries of polynomial length - otherwise only constant functions can be computed.\\
- \pause
- Ko defines logarithmic-space computable real-functions by not counting the query and answer tapes towards the space limit.\\
- This works for when only dealing with queries of the form $0^n$ but for general oracle functions $\phi$ it would allow iterating the function $\phi$ polynomially many times.
-\end{frame}
-\begin{frame}
-\frametitle{The stack model}
-\end{frame}
 \section{Complexity of Analytic Functions}
 \subsection{Results}
 \frametitle{How to represent analytic functions?}
 \begin{frame}
+  Consider functions complex analytic on the closed unit disc.
 \begin{representation1}
   Integers $A$, $k$, and name for function $f$.\\
   $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
@@ -309,9 +390,68 @@ $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
   Integers $A$, $k$ and the series sequence $(a_k)_{k \in \N}$.\\
   $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
 \end{representation2}
-Those two representations are log-space equivalent.
+Those two representations are logspace equivalent.
 \end{frame}
 \begin{frame}
-  
+\frametitle{Getting the constants}
+Given $A$, $k$ s.t. 
+  $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}} \text{ for all } n \in \N.$
+Let $k' = 2k$ and $A' = 4kA$ \\
+For $z \in B(0, \sqrt[k']{2})$
+$$f(x) = \sum_{n=0}^\infty a_nz^n \leq A\sum_{n=0}^\infty 2^{-\frac{n}{k}} \cdot 2^{\frac{n}{2k}} \leq A \cdot \frac{\sqrt[2k]{2}}{\sqrt{2k}{2}-1} \leq 4Ak$$
+\end{frame}
+\begin{frame}
+\frametitle{Evaluating the function}
+Note that the following is logspace computable
+\begin{enumerate}
+\item Addition of polynomially (in $n$) many $n$-bit integers
+\item Multiplication of polynomially (in $n$) many $n$-bit integers
+\item Compute $x^m$ with precision polynomial in $n$ where $m$ is an integer of length polynomial in $n$
+ \item Composition of a constant number of logspace computable functions
+\end{enumerate}
+Thus $\sum_{j=0}^{poly(n)} a_jx^j$ is logspace computable.
+\end{frame}
+\begin{frame}
+\frametitle{Getting the constants}
+\begin{itemize}
+\item Given $A$, $k$ s.t. $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
+\item  By Cauchy's integral formula $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
+\item Thus set $A' = A$ and $k' = k$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Computing coefficients}
+Note that the following is logspace computable
+\begin{enumerate}
+  \item Computing factorials and binomial coefficients
+\end{enumerate}
+
+\end{frame}
+\begin{frame}
+\frametitle{Computing Derivatives}
+\begin{itemize}
+\item 
+\end{itemize}
+  Similarly, the following operations on analytic functions are computable in logartihmic-space
+  \begin{enumerate}
+    \item Addition, Subtraction, Multiplication of two analytic functions
+     \item $d$-fold anti-derivative
+   \end{enumerate}
+\end{frame}
+\begin{frame}
+  \frametitle{Completeness}
+ \end{frame}
+\begin{frame}
+  \frametitle{Ordinary Differential Equations}
+  Consider the following problem
+\begin{eqnarray*}
+  \dot y(t) &=& F(t, y(t)) \\
+  y(0) &=& 0 
+\end{eqnarray*}
+Where $F$ is analytic.
+It is in P. Is it P-hard?
+ \end{frame}
+\begin{frame}
+  \frametitle{Conclusion}
 \end{frame}
 \end{document}
