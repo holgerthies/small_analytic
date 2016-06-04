@@ -94,6 +94,7 @@
 \newtheorem{conjecture}{Conjecture} 
 \newtheorem{representation1}{Representation 1} 
 \newtheorem{representation1b}{Representation 1'} 
+\newcommand\tab[1][1cm]{\hspace*{#1}}
 \newtheorem{representation2}{Representation 2} 
 \title[Analytic Functions]{Analytic Functions and Small Complexity Classes}
 \author[ H. Thies]{
@@ -261,12 +262,132 @@
 \end{frame}
 \begin{frame}
 \frametitle{Example}
-The function $\text{Apply}: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable. 
+The function $\text{Apply}: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable. \\
+\vfill
+\only<2>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& - \\
+Oracle Output:& $\varepsilon$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+}
+\only<3>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& $\varepsilon$;$\varepsilon$;$\varepsilon$ \\
+Oracle Output:& $\varepsilon$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+}
+\only<4>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& $1^{n+1}$;$\varepsilon$;$\varepsilon$ \\
+Oracle Output:& $\varepsilon$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+}
+\only<5>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& $\varepsilon$;$\varepsilon$ \\
+Oracle Output:& $1^m$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+\begin{textblock*}{20pt}(150pt,160pt)
+\colorbox{yellow}{
+$\abs{x-y} \leq 2^{-m} \Rightarrow \abs{f(x)-f(y)} \leq 2^{-(n+1)}$
+}
+\end{textblock*}
+}
+\only<6>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& $1^{m}$;$\varepsilon$ \\
+Oracle Output:& $1^m$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+}
+\only<7>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& $\varepsilon$ \\
+Oracle Output:& $d$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+\begin{textblock*}{20pt}(150pt,160pt)
+\colorbox{yellow}{
+$\abs{x-d} \leq 2^{-m}$
+}
+\end{textblock*}
+}
+\only<8>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& $d,1^{n+1}$ \\
+Oracle Output:& $d$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+}
+\only<9>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& - \\
+Oracle Output:& $q$ \\
+Work:& $\varepsilon$ \\
+Output:& $\varepsilon$ 
+\end{tabular}
+}
+\begin{textblock*}{20pt}(150pt,160pt)
+\colorbox{yellow}{
+$\abs{q-f(d)} \leq 2^{-(n+1)}$
+}
+\end{textblock*}
+}
+\only<10>{
+\texttt{
+\begin{tabular}{ll}
+Input:& $1^n$ \\
+Stack:& - \\
+Oracle Output:& $q$ \\
+Work:& $\varepsilon$ \\
+Output:& $q$ 
+\end{tabular}
+}
+\begin{textblock*}{20pt}(150pt,190pt)
+\colorbox{yellow}{
+$\abs{q-f(x)} \leq 2^{-n}$
+}
+\end{textblock*}
+}
 \end{frame}
-\begin{frame}
-\frametitle{Example}
-The function $\text{Apply}: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable. 
-\end{frame}
+%% \begin{frame}
+%% \frametitle{Example}
+%% The function $\text{Apply}: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable. 
+%% \end{frame}
 \section{Analytic Functions}
 \begin{frame}
 \frametitle{Complexity of Operators}
