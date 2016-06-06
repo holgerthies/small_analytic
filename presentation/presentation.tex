@@ -90,6 +90,7 @@
 \newcommand{\pt}{\ensuremath{\text{P}^2}\xspace}
 \newcommand{\npt}{\ensuremath{\text{NP}^2}\xspace}
 \newcommand{\pspacet}{\ensuremath{\text{PSPACE}^2}\xspace}
+\newcommand{\pspace}{\ensuremath{\text{PSPACE}}\xspace}
 \DeclareMathOperator{\dom}{\mathrm{dom}}
 \newtheorem{conjecture}{Conjecture} 
 \newtheorem{representation1}{Representation 1} 
@@ -109,8 +110,11 @@
 \frame{
 \titlepage
 }
-\section{Second Order Complexity}
-\subsection{Definition}
+\frame{
+ \tableofcontents 
+}
+\section{Type-2 Complexity}
+\subsection*{Definition}
 \begin{frame}
   \frametitle{Representations}
   A representation for a set $X$ is a partial surjective function $\rho: \Sigma^{**} \to X$.
@@ -221,7 +225,7 @@
                 
   \end{frame}
 \section{Small Complexity Classes}
-\subsection{Definition}
+\subsection*{Definition}
 \begin{frame}
   \frametitle{Small Complexity Classes}
   \centering
@@ -383,6 +387,9 @@ $\abs{q-f(x)} \leq 2^{-n}$
 }
 \end{textblock*}
 }
+\only<11>{
+  Similarly,$\text{Apply}^c: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f^c(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable for constant $c \in \N$ using a stack of size $2c+1$.
+}
 \end{frame}
 %% \begin{frame}
 %% \frametitle{Example}
@@ -444,7 +451,7 @@ $$
 \pause
 However, if we supply some additional (discrete) information those operators become computable.
 \end{frame}
-\subsection{Representing power series}
+\subsection*{Representing power series}
 \begin{frame}
 \frametitle{How to represent analytic functions?}
 \begin{lemma}
@@ -462,46 +469,44 @@ $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
 \begin{frame}
 \frametitle{How to represent analytic functions?}
 \begin{representation1}
-  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:\bar B(0,1) \to \R$ iff
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:\bar B(0,1) \to \R$ iff it is a concatenation of the following  
   \begin{enumerate}
-  \item $\varphi(0)$ is an integer $A$ encoded in binary,
-  \item $\varphi(1)$ is an integer $k$ encoded in unary,
-  \item The function $n \to \varphi(n+2)$ is a name for the function $f$
-  \item $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
+  \item An integer $A$ encoded in binary,
+  \item An integer $k$ encoded in unary,
+  \item A name for the function $f$
   \end{enumerate}
-
+  Such that $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
 \end{representation1}
 \end{frame}
 \begin{frame}
 \frametitle{How to represent analytic functions?}
 \begin{representation2}
-  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a power series $(a_k)_{k \in \N}$ iff
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a power series $(a_k)_{k \in \N}$ iff it is a concatenation of the following
   \begin{enumerate}
-  \item $\varphi(0)$ is an integer $A$ encoded in binary
-  \item $\varphi(1)$ is an integer $k$ encoded in unary
-  \item the function $n \to \varphi(n+2)$ is a name for the sequence $(a_k)_{k \in \N}$ and
-  $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
+  \item An integer $A$ encoded in binary
+  \item An integer $k$ encoded in unary
+  \item A name for a sequence $(a_k)_{k \in \N}$
   \end{enumerate}
+  Such that $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
 \end{representation2}
 \end{frame}
-\begin{frame}[<+->]
+\begin{frame}
 \frametitle{Analytic Functions and Computational Complexity}
 \begin{theorem}[Kawamura, R\"osnick, M\"uller, Ziegler (2013)]
-  The previous two representations are polynomial-time equivalent.
-  Further the following operations can be performed in polynomial time
+  With the previous two representations the following operations can be performed in polynomial time
 \begin{enumerate}
 \item evaluation
 \item addition and multiplication
 \item differentiation and anti-differentiation
 \item parametric maximization
 \end{enumerate}
+Further, when identifying an analytic function with its power series, the operators that compute one representation from the other are polynomial-time computable.
 \end{theorem}
 \end{frame}
-\subsection{Definition}
-\section{Complexity of Analytic Functions}
-\subsection{Results}
-\frametitle{How to represent analytic functions?}
+\section{Analytic Functions and Small Complexity Classes}
+\subsection*{Results}
 \begin{frame}
+\frametitle{Analytic Functions and Small Complexity Classes}
   Consider functions complex analytic on the closed unit disc.
 \begin{representation1}
   Integers $A$, $k$, and name for function $f$.\\
@@ -514,53 +519,58 @@ $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
 Those two representations are logspace equivalent.
 \end{frame}
 \begin{frame}
-\frametitle{Getting the constants}
+\frametitle{Representation 2 $\Rightarrow$ Representation 1}
 Given $A$, $k$ s.t. 
   $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}} \text{ for all } n \in \N.$
+Need $A'$, $k'$ s.t. for all $z \in B(0, \sqrt[k']{2})$
+$\abs{f(z)} \leq A$\\
+\vfill
+\pause
 Let $k' = 2k$ and $A' = 4kA$ \\
 For $z \in B(0, \sqrt[k']{2})$
-$$f(x) = \sum_{n=0}^\infty a_nz^n \leq A\sum_{n=0}^\infty 2^{-\frac{n}{k}} \cdot 2^{\frac{n}{2k}} \leq A \cdot \frac{\sqrt[2k]{2}}{\sqrt{2k}{2}-1} \leq 4Ak$$
+$$f(z) = \sum_{n=0}^\infty a_nz^n \leq A\sum_{n=0}^\infty 2^{-\frac{n}{k}} \cdot 2^{\frac{n}{2k}} \leq 4Ak$$
 \end{frame}
 \begin{frame}
-\frametitle{Evaluating the function}
-Note that the following is logspace computable
+\frametitle{Representation 2 $\Rightarrow$ Representation 1}
+$n \mapsto n+\log_2(A)+2\log_2(k)+5$ is a modulus of continuity for the function.\\
+\pause
+Further, we need to evaluate the function.\\
+Note that the following is logspace computable 
 \begin{enumerate}
 \item Addition of polynomially (in $n$) many $n$-bit integers
 \item Multiplication of polynomially (in $n$) many $n$-bit integers
 \item Compute $x^m$ with precision polynomial in $n$ where $m$ is an integer of length polynomial in $n$
  \item Composition of a constant number of logspace computable functions
 \end{enumerate}
-Thus $\sum_{j=0}^{poly(n)} a_jx^j$ is logspace computable.
+\pause
+Thus $\sum_{j=0}^{poly(n)} a_jx^j$ is logspace computable.\\
+We need to evaluate $N \approx n \cdot k + \log(A)$ terms.
 \end{frame}
 \begin{frame}
-\frametitle{Getting the constants}
-\begin{itemize}
-\item Given $A$, $k$ s.t. $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
-\item  By Cauchy's integral formula $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
-\item Thus set $A' = A$ and $k' = k$
-\end{itemize}
+\frametitle{Representation 1 $\Rightarrow$ Representation 2}
+Given $A$, $k$ s.t. for all $z \in B(0, \sqrt[k']{2})$
+$\abs{f(z)} \leq A$\\
+Need $A'$, $k'$ such that $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}} \text{ for all } n \in \N.$\\
+By Cauchy's integral formula $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$. \\
+Thus, we can just set $A' = A$ and $k' = k$.\\
+\pause
+Further we need to compute the coefficients for the power series around $0$.\\
+Note, that Computing factorials and binomial coefficients is logspace computable.
 \end{frame}
 \begin{frame}
-\frametitle{Computing coefficients}
-Note that the following is logspace computable
-\begin{enumerate}
-  \item Computing factorials and binomial coefficients
-\end{enumerate}
-
-\end{frame}
-\begin{frame}
-\frametitle{Computing Derivatives}
-\begin{itemize}
-\item 
-\end{itemize}
+\frametitle{Further Operations}
   Similarly, the following operations on analytic functions are computable in logartihmic-space
   \begin{enumerate}
     \item Addition, Subtraction, Multiplication of two analytic functions
-     \item $d$-fold anti-derivative
+    \item Computing the $d$-fold derivative
+    \item Computing the $d$-fold anti-derivative
    \end{enumerate}
 \end{frame}
 \begin{frame}
   \frametitle{Completeness}
+  Kawamura and Ota also define the notions of reductions and completeness.
+  Bild reductions.
+  Inverse function is P-complete.
  \end{frame}
 \begin{frame}
   \frametitle{Ordinary Differential Equations}
@@ -569,10 +579,21 @@ Note that the following is logspace computable
   \dot y(t) &=& F(t, y(t)) \\
   y(0) &=& 0 
 \end{eqnarray*}
-Where $F$ is analytic.
-It is in P. Is it P-hard?
+This is \pspace-hard for general Lipschitz-continuous right hand side function $F$ (Kawamura),
+but polynomial-time computable for analytic $F$.
+
+How does this problem behave in terms of small complexity classes?
  \end{frame}
+\section{Conclusion}
+\subsection*{Overview and Future Work}
 \begin{frame}
   \frametitle{Conclusion}
+  \begin{itemize}
+    \item Presented Kawamura and Ota's model for logspace computability in analysis.
+    \item In this model many operations on analytic functions are logspace computable, when considering representations that have previously been considered for polynomial time computability.
+    \item Open Problems: Parametrized Maximization, Ordinary Differential Equations
+     \item Connection to Parallelization in Exact Real Arithmetic
+     \item Implementations
+  \end{itemize}
 \end{frame}
 \end{document}

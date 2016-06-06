@@ -159,3 +159,7 @@ pythontex-files-*/
 TSWLatexianTemp*
 *.pdf
 /.DS_Store
+*.autosave
+*.pdf_tex
+/presentation/.DS_Store
+*.svg
