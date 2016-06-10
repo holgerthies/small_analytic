@@ -113,12 +113,24 @@
 \frame{
  \tableofcontents 
 }
+\begin{frame}
+  \frametitle{Motivation}
+  \begin{itemize}
+  \item Analytic Functions have been studied in real complexity theory in terms of polynomial time computability
+  \item Implemented a data-type for analytic functions in iRRAM
+  \item Many operations are done by some transformation on each coefficient of the power series
+  \item This seems to be well-suited for Parallelization
+  \item How can we model this theoretically?
+  \end{itemize}
+ \end{frame}
 \section{Type-2 Complexity}
 \subsection*{Definition}
 \begin{frame}
   \frametitle{Representations}
-  A representation for a set $X$ is a partial surjective function $\rho: \Sigma^{**} \to X$.
+  A representation for a set $X$ is a partial surjective function $\rho: \Sigma^{**} \to X$,
+  that is objects are encoded by string functions.\\
   \pause
+  How to compute with representations?
   \vfill
   \begin{minipage}{.37\textwidth}
   \begin{displaymath}
@@ -154,20 +166,6 @@
   \end{minipage}
   \end{frame}
 \begin{frame}
-  \frametitle{Type-2 Complexity Theory}
-  \begin{itemize}
-  \item Let $\sigmas$ be the set of length-monotone string-functions, i.e. $\abs{x} \leq \abs{y} \Rightarrow \abs{\varphi(x)} \leq \abs{\varphi(y)}$
-  \item Consider representation $\varphi : \sigmas \to \sigmas$
-  \item Define $\abs{\varphi} : \N \to \N$ by $\abs{\varphi}(\abs{u}) = \abs{\varphi(u)}$
-   \item Bound running time by second order polynomials $P(\abs{\varphi})(\abs{x})$
-   \item Example: $P(L,n) = 2L(L(L(n)^4+2L(n))+2)+n+10$
-   \item  Can define complexity classes \fpt, \sharpt and \fpspacet 
-   \item  Can also define complexity classes \pt, \npt and \pspacet by considering functions $\varphi : \sigmas \to (\Sigma^* \to \{0,1\})$
-     \item Type-2 classes are easy to seperate
-  
-  \end{itemize}
-\end{frame}
-\begin{frame}
   \frametitle{Example}
   Define a $\rho_\R$-name of $x \in \RR$ by
   $\rho_\R(0^n)$ encodes a $d \in \D$ such that $\abs{d-x} \leq 2^{-n} $.
@@ -191,11 +189,11 @@
 		\end{tikzpicture}
 		\end{figure}
 
-  Note, that $(\rho_\R|^{[0,1]}, \rho_\R)$-\fpt equals the polynomial-time computable real functions as defined by Ko.
+  % Note, that $(\rho_\R|^{[0,1]}, \rho_\R)$-\fpt equals the polynomial-time computable real functions as defined by Ko.
 \end{frame}
 \begin{frame}
   \frametitle{Example}
-  Define a $\delta_\Box$-name of a function $f \in C[0,1]$ as a pair $<\mu, \phi>$ where $\mu$ encodes the modulus of convergence (in unary) and $\phi$ is such that $\abs{\phi(d, 0^n)-f(d)} \leq 2^{-n}$ for all $d \in \D \cap [0,1]$
+  Define a $\delta_\Box$-name of a function $f \in C[0,1]$ as a pair $<\mu, \phi>$ where $\mu$ encodes the modulus of continuity (in unary) and $\phi$ is such that $\abs{\phi(d, 0^n)-f(d)} \leq 2^{-n}$ for all $d \in \D \cap [0,1]$
 
 		\begin{figure}
 		\centering
@@ -205,16 +203,16 @@
 			%x
 				\draw[thick] (0,0) rectangle (4,-2);
 				\node at (2.0,-1) {$f \in C[0,1]$};
-				\draw[-triangle 90] (.2,-2.5) -- (.2,-2.0);
-				\node at (.2,-2.65) {$0^m$};
-				\draw[-triangle 90] (1.0,-2.0) -- (1.0,-2.5);
-				\node at (1.0,-2.65) {$0^{\mu(m)}$};
-				\draw[-triangle 90] (2.7,-2.5) -- (2.7,-2.0);
-				\node at (2.7,-2.65) {$d$};
-				\draw[-triangle 90] (3.2,-2.5) -- (3.2,-2.0);
-				\node at (3.2,-2.65) {$0^n$};
-				\draw[-triangle 90] (3.7,-2.0) -- (3.7,-2.5);
-				\node at (3.7,-2.65) {$q$};
+				\draw<1>[-triangle 90] (.2,-2.5) -- (.2,-2.0);
+				\node<1> at (.2,-2.65) {$0^m$};
+				\draw<1>[-triangle 90] (1.0,-2.0) -- (1.0,-2.5);
+				\node<1> at (1.0,-2.65) {$0^{\mu(m)}$};
+				\draw<2>[-triangle 90] (2.7,-2.5) -- (2.7,-2.0);
+				\node<2> at (2.7,-2.65) {$d$};
+				\draw<2>[-triangle 90] (3.2,-2.5) -- (3.2,-2.0);
+				\node<2> at (3.2,-2.65) {$0^n$};
+				\draw<2>[-triangle 90] (3.7,-2.0) -- (3.7,-2.5);
+				\node<2> at (3.7,-2.65) {$q$};
 				%\node<4-> at (2.85,-2.25) {$d_{n,i}$};
 				%\node<4-> at (1.5,-1) {$(a_i)$};
 				%\draw<4-> (1,-2) -- (1,-2.2);
@@ -224,6 +222,19 @@
 		\end{figure}
                 
   \end{frame}
+\begin{frame}
+  \frametitle{Type-2 Complexity Theory}
+  \begin{itemize}
+  \item Let $\sigmas$ be the set of length-monotone string-functions, i.e. s.t. $\abs{x} \leq \abs{y} \Rightarrow \abs{\varphi(x)} \leq \abs{\varphi(y)}$.
+  \item Define $\abs{\varphi} : \N \to \N$ by $\abs{\varphi}(\abs{u}) = \abs{\varphi(u)}$
+   \item Bound running time by second order polynomials $P(\abs{\varphi})(\abs{x})$
+   \item Example: $P(L,n) = 2L(L(L(n)^4+2L(n))+2)+n+10$
+   \item  Can define complexity classes \fpt, \sharpt and \fpspacet 
+   \item  Can also define complexity classes \pt, \npt and \pspacet by considering functions $\varphi : \sigmas \to (\Sigma^* \to \{0,1\})$
+     \item Type-2 classes are easy to seperate
+  
+  \end{itemize}
+\end{frame}
 \section{Small Complexity Classes}
 \subsection*{Definition}
 \begin{frame}
@@ -388,7 +399,7 @@ $\abs{q-f(x)} \leq 2^{-n}$
 \end{textblock*}
 }
 \only<11>{
-  Similarly,$\text{Apply}^c: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f^c(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable for constant $c \in \N$ using a stack of size $2c+1$.
+  Similarly,$\text{Apply}^c: C[0,1] \times [0,1] \to [0,1]\,\, (f,x) \mapsto f^c(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable for constant $c \in \N$ using a stack of size $2c+1$.
 }
 \end{frame}
 %% \begin{frame}
@@ -396,19 +407,18 @@ $\abs{q-f(x)} \leq 2^{-n}$
 %% The function $\text{Apply}: C[0,1] \times [0,1] \to \RR,\, (f,x) \mapsto f(x) $ is $([\delta_\Box, \rho_\RR^{|[0,1]}], \rho_\RR)-$FL computable. 
 %% \end{frame}
 \section{Analytic Functions}
+\subsection*{Complexity}
 \begin{frame}
 \frametitle{Complexity of Operators}
 \begin{fact}
 For general polynomial time computable functions, many important operators have been shown to be computationally hard.\\
 For example
-\pause
-\begin{itemize}[<+->]
+\begin{itemize}
 \item Polynomial time computable functions may have noncomputable derivatives. (Ko 1983)
 \item Parametric maximization is NP-hard. (Ko/Friedman (1982))
 \item Integration is \#P-hard. (Friedman (1984))
 \end{itemize}
 \end{fact}
-\pause
 Thus, we can not expect to have efficient algorithms for those operators unless we restrict the possible functions.
 \end{frame}
 \begin{frame}
@@ -469,18 +479,6 @@ $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
 \begin{frame}
 \frametitle{How to represent analytic functions?}
 \begin{representation1}
-  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:\bar B(0,1) \to \R$ iff it is a concatenation of the following  
-  \begin{enumerate}
-  \item An integer $A$ encoded in binary,
-  \item An integer $k$ encoded in unary,
-  \item A name for the function $f$
-  \end{enumerate}
-  Such that $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
-\end{representation1}
-\end{frame}
-\begin{frame}
-\frametitle{How to represent analytic functions?}
-\begin{representation2}
   A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for a power series $(a_k)_{k \in \N}$ iff it is a concatenation of the following
   \begin{enumerate}
   \item An integer $A$ encoded in binary
@@ -488,6 +486,18 @@ $$ \left | \sum_{n \geq N} a_n z^n \right |  $$
   \item A name for a sequence $(a_k)_{k \in \N}$
   \end{enumerate}
   Such that $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
+\end{representation1}
+\end{frame}
+\begin{frame}
+\frametitle{How to represent analytic functions?}
+\begin{representation2}
+  A (length-monotone) function $\varphi: \Sigma^* \to \Sigma^*$ is a name for an analytic function $f:\bar B(0,1) \to \R$ iff it is a concatenation of the following  
+  \begin{enumerate}
+  \item An integer $A$ encoded in binary,
+  \item An integer $k$ encoded in unary,
+  \item A name for the function $f$
+  \end{enumerate}
+  Such that $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
 \end{representation2}
 \end{frame}
 \begin{frame}
@@ -509,17 +519,17 @@ Further, when identifying an analytic function with its power series, the operat
 \frametitle{Analytic Functions and Small Complexity Classes}
   Consider functions complex analytic on the closed unit disc.
 \begin{representation1}
-  Integers $A$, $k$, and name for function $f$.\\
-  $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
-\end{representation1}
-\begin{representation2}
   Integers $A$, $k$ and the series sequence $(a_k)_{k \in \N}$.\\
   $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$.
+\end{representation1}
+\begin{representation2}
+  Integers $A$, $k$, and name for function $f$.\\
+  $f$ extends analytically to $B(0, \sqrt[k]{2})$ and $\abs{f(z)} \leq A$ for all $z \in B(0, \sqrt[k]{2})$
 \end{representation2}
 Those two representations are logspace equivalent.
 \end{frame}
 \begin{frame}
-\frametitle{Representation 2 $\Rightarrow$ Representation 1}
+\frametitle{Representation 1 $\Rightarrow$ Representation 2}
 Given $A$, $k$ s.t. 
   $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}} \text{ for all } n \in \N.$
 Need $A'$, $k'$ s.t. for all $z \in B(0, \sqrt[k']{2})$
@@ -531,7 +541,7 @@ For $z \in B(0, \sqrt[k']{2})$
 $$f(z) = \sum_{n=0}^\infty a_nz^n \leq A\sum_{n=0}^\infty 2^{-\frac{n}{k}} \cdot 2^{\frac{n}{2k}} \leq 4Ak$$
 \end{frame}
 \begin{frame}
-\frametitle{Representation 2 $\Rightarrow$ Representation 1}
+\frametitle{Representation 1 $\Rightarrow$ Representation 2}
 $n \mapsto n+\log_2(A)+2\log_2(k)+5$ is a modulus of continuity for the function.\\
 \pause
 Further, we need to evaluate the function.\\
@@ -547,15 +557,17 @@ Thus $\sum_{j=0}^{poly(n)} a_jx^j$ is logspace computable.\\
 We need to evaluate $N \approx n \cdot k + \log(A)$ terms.
 \end{frame}
 \begin{frame}
-\frametitle{Representation 1 $\Rightarrow$ Representation 2}
+\frametitle{Representation 2 $\Rightarrow$ Representation 1}
 Given $A$, $k$ s.t. for all $z \in B(0, \sqrt[k']{2})$
 $\abs{f(z)} \leq A$\\
-Need $A'$, $k'$ such that $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}} \text{ for all } n \in \N.$\\
-By Cauchy's integral formula $\abs{a_n} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$. \\
+Need $A'$, $k'$ such that $\abs{a_m} \leq A \cdot 2^{-\frac{m}{k}} \text{ for all } m \in \N.$\\
+By Cauchy's integral formula $\abs{a_m} = \frac{f^{(m)}(0)}{m!} \leq A \cdot 2^{-\frac{n}{k}}$ for all $n \in \N$. \\
 Thus, we can just set $A' = A$ and $k' = k$.\\
 \pause
 Further we need to compute the coefficients for the power series around $0$.\\
-Note, that Computing factorials and binomial coefficients is logspace computable.
+Approximating the derivatives can be done by first approximating the function by a polynomial and then differentiating this polynomial (M\"{u}ller).\\
+To get the coefficient $a_m$  the function has to be evaluated at $2m+1$ equidistant points with polynomial precision.\\
+Note that Computing factorials and binomial coefficients of polynomial size is logspace computable.\\
 \end{frame}
 \begin{frame}
 \frametitle{Further Operations}
@@ -567,11 +579,14 @@ Note, that Computing factorials and binomial coefficients is logspace computable
    \end{enumerate}
 \end{frame}
 \begin{frame}
-  \frametitle{Completeness}
+  \frametitle{P-completeness}
   Kawamura and Ota also define the notions of reductions and completeness.
-  Bild reductions.
-  Inverse function is P-complete.
- \end{frame}
+  For example they give the following uniform version of a theorem by Ko
+  \begin{theorem}
+    For the set $M$ of bijective functions in $C[0,1]$, define the $\delta_{\Box INV}$ representation by adding a modulus of continuity for the inverse function to the $\delta_{\Box}$ representation.\\
+    The function $Inv: M \to C[0,1],\, Inv(f) \mapsto f^{-1}$ is $(\delta_{\Box INV}, \delta_{\Box})$-FP-complete.
+  \end{theorem}
+\end{frame}
 \begin{frame}
   \frametitle{Ordinary Differential Equations}
   Consider the following problem
@@ -584,7 +599,6 @@ but polynomial-time computable for analytic $F$.
 
 How does this problem behave in terms of small complexity classes?
  \end{frame}
-\section{Conclusion}
 \subsection*{Overview and Future Work}
 \begin{frame}
   \frametitle{Conclusion}
