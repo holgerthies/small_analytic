@@ -1,0 +1,94 @@
+%% FIRST RENAME THIS FILE <yoursurname>.tex. 
+%% 
+%% TO PROCESS THIS FILE YOU WILL NEED TO DOWNLOAD 
+%% llncs.cls and remreset.sty from 
+%% ftp://ftp.springer.de/pub/tex/latex/llncs/latex2e/llncs2e.zip
+%% This abstract should be 1page.
+
+\documentclass{llncs}
+\usepackage{amsmath,amssymb}
+\newcommand{\DD}{\mathbb D}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+\DeclareMathOperator{\NN}{\mathbb N}
+\DeclareMathOperator{\C}{\mathcal C}
+\DeclareMathOperator{\laplace}{\Delta}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\p}{\ensuremath{\mathcal P}~}
+\newcommand{\np}{\ensuremath{\mathcal{NP}}~}
+\newcommand{\cl}{\ensuremath{\mathcal{L}}~}
+\newcommand{\nc}{\ensuremath{\mathcal{NC}}~}
+\newcommand{\fp}{\ensuremath{\mathcal{FP}}~}
+\newcommand{\sharpp}{\ensuremath{\# \mathcal{P}}~}
+\newcommand{\pspace}{\ensuremath{ \mathcal{PSPACE}}~}
+\newcommand{\cc}{\texttt{C++}\xspace}
+\newcommand{\irram}{\texttt{iRRAM}\xspace}
+
+\begin{document}
+
+\title{Analytic Functions and Small Complexity Classes}
+
+%% SINGLE AUTHOR
+%\author{FirstName LastName}
+%\institute{Department, University, Street Address, Country,
+%\email{email address}}
+
+%% MULTIPLE AUTHORS
+%%% NOTE: email required for at least one author
+\author{Akitoshi Kawamura\inst{1} \and Florian Steinberg\inst{2} \and Holger Thies\inst{1}}
+\institute{Graduate School of Arts and Sciences, The University of Tokyo, Street Address1, Country1, \email{info@holgerthies.com} \and Department2, University2, Street Address2, Country2}
+
+\maketitle
+
+%% INSERT TEXT OF ABSTRACT DIRECTLY BELOW
+Kawamura and Cook's extension to Weihrauch's framework of representations \cite{Weihrauch} gives a reasonable model to analyze the complexity of operators in analysis \cite{AkiACM}.
+Defining type-2 versions of the complexity classes \p, \np and \pspace, they generalized many non-uniform hardness results into uniform statements.
+
+Using this model, it can be shown that many important operators are in general hard from the viewpoint of real complexity theory. 
+For example, it can be shown that integration is \sharpp-hard in general \cite{MR748898,AkiACM}.
+Nevertheless, restricting to only analytic functions many of these operators can be computed in polynomial time, see e.g. \cite{MR1137517, Kawamura2012}.  
+Using the right representation for analytic functions, those statements can be turned into unfiform algorithms.
+Therefore, analytic functions have been thoroughly studied in real computability and complexity theory.
+
+Applying operators to power series usually involves modifications on a large number of coefficients at the same time.
+Thus, it is reasonable to ask which operations on analytic can be efficiently parallelized.
+In classical complexity theory, efficient parallelization is strongly connected to the complexity classes \cl of problems decidable in logarithmic space and \nc of problems decidable by circuits of polynomial size and polylogarithmic depth.
+A generalization of this in the sense of continuous problems was recently done by Kawamura and Ota \cite{Kawamura2014}.
+In particular, they define type-two analogues of the classes \cl and \nc and a notion of \p-completeness, to classify problems that most likely can not benefit much from parallelization.
+
+Using their framework, we generalize the polynomial time results on analytic functions and investigate which operations are eligible for efficient parallelization and which most likely are not.
+
+
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+
+\bibitem{AkiACM}
+Kawamura, A., Cook, S.: Complexity theory for operators in analysis. ACM
+  Transactions in Computation Theory  4(2),  Article~5 (2012)
+
+\bibitem{Kawamura2012}
+Kawamura, A., M{\"u}ller, N.T., R{\"o}snick, C., Ziegler, M.: {Parameterized
+  Uniform Complexity in Numerics: from Smooth to Analytic, from NP-hard to
+  Polytime}. arXiv preprint  (2012), \url{http://arxiv.org/abs/1211.4974}
+
+\bibitem{Kawamura2014}
+  Kawamura, A., Ota, H.,
+  {\it Small complexity classes for computable analysis.},
+  Lecture Notes in Computer Science,
+  vol.~8635,  pp.~432--444.
+
+\bibitem{MR1137517}
+Ko, Ker-I
+{\it Complexity theory of real functions},
+Springer,
+2000.
+
+\bibitem{Weihrauch}
+Weihrauch, Klaus
+{\it Computable Analysis, an Introduction},
+Springer,
+2000.
+\end{thebibliography}
+\end{document}
