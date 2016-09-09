@@ -8,19 +8,20 @@
 \documentclass{llncs}
 \usepackage{amsmath,amssymb}
 \newcommand{\DD}{\mathbb D}
+\usepackage{xspace}
 \newcommand{\RR}{\mathbb R}
 \newcommand{\CC}{\mathbb C}
 \DeclareMathOperator{\NN}{\mathbb N}
 \DeclareMathOperator{\C}{\mathcal C}
 \DeclareMathOperator{\laplace}{\Delta}
 \newcommand{\abs}[1]{\left|#1\right|}
-\newcommand{\p}{\ensuremath{\mathcal P}}
-\newcommand{\np}{\ensuremath{\mathcal{NP}}}
-\newcommand{\cl}{\ensuremath{\mathcal{L}}}
-\newcommand{\nc}{\ensuremath{\mathcal{NC}}}
-\newcommand{\fp}{\ensuremath{\mathcal{FP}}}
-\newcommand{\sharpp}{\ensuremath{\# \mathcal{P}}}
-\newcommand{\pspace}{\ensuremath{ \mathcal{PSPACE}}}
+\newcommand{\p}{\ensuremath{\mathcal P}\xspace}
+\newcommand{\np}{\ensuremath{\mathcal{NP}}\xspace}
+\newcommand{\cl}{\ensuremath{\mathcal{L}}\xspace}
+\newcommand{\nc}{\ensuremath{\mathcal{NC}}\xspace}
+\newcommand{\fp}{\ensuremath{\mathcal{FP}}\xspace}
+\newcommand{\sharpp}{\ensuremath{\# \mathcal{P}}\xspace}
+\newcommand{\pspace}{\ensuremath{ \mathcal{PSPACE}}\xspace}
 \newcommand{\cc}{\texttt{C++}\xspace}
 \newcommand{\irram}{\texttt{iRRAM}\xspace}
 
@@ -42,14 +43,14 @@
 
 %% INSERT TEXT OF ABSTRACT DIRECTLY BELOW
 Kawamura and Cook's extension to Weihrauch's framework of representations \cite{Weihrauch} gives a reasonable model to analyze the complexity of operators in analysis \cite{AkiACM}.
-Defining type-2 versions of the complexity classes \p, \np~and \pspace, they generalized many non-uniform hardness results into uniform statements.
+Defining type-2 versions of the complexity classes \p, \np and \pspace, they generalized many non-uniform hardness results into uniform statements.
 
 Using this model, it can be shown that many important operators are in general hard from the viewpoint of real complexity theory. 
 Nevertheless, restricting to only analytic functions many of these operators can be computed in polynomial time \cite{MR1137517}.
-Using the right representation, those statements can be turned into unfiform algorithms \cite{Kawamura2012}.
+Using the right representation, those statements can be turned into uniform algorithms \cite{Kawamura2012}.
 Since applying operators to power series often involves modifications on a large number of coefficients at the same time, it is reasonable to ask which operations on analytic functions can be efficiently parallelized.
 
-In classical complexity theory, efficient parallelization is strongly connected to the complexity classes \cl~ and \nc.
+In classical complexity theory, efficient parallelization is strongly connected to the complexity classes \cl and \nc.
 A generalization of this in the sense of continuous problems was recently done by Kawamura and Ota \cite{Kawamura2014}.
 Using their framework, we generalize the polynomial time results on analytic functions and investigate which operations are eligible for efficient parallelization and which most likely are not.
 
