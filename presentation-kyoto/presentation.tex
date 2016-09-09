@@ -553,21 +553,6 @@ For example
 \end{itemize}
 \end{tcolorbox}
 \end{frame}
-\begin{frame}
-\frametitle{Complexity of Ordinary Differential Equations}
-\begin{theorem}[Kawamura, 2010]
-Consider the IVP
-$$
-y'(t)=f(t,y(t)) \quad;\quad y(0)=0.
-$$
-There exists functions $f: [0,1] \times [-1,1] \to \RR$ and  $y: [0,1] \to [-1,1]$  as above such that
-\begin{enumerate}
-\item $f$ is Lipschitz-continuous and polynomial time computable
-\item $y$ is PSPACE-hard.
-\end{enumerate}
-\end{theorem}
-% The problem can be solved in PSPACE by applying the Euler method. (Ko)
-\end{frame}
 \subsection{Complexity for Analytic Functions}
 \begin{frame}
 \frametitle{Analytic Function}
@@ -646,6 +631,25 @@ The evaluation operator $((a_m)_{m \in \N},x) \to f(x) $ is not computable.
 \pause
 Further, when identifying an analytic function with its power series, the operators that compute one representation from the other are polynomial-time computable.
 \end{theorem}
+\end{frame}
+\begin{frame}
+\frametitle{Complexity of Ordinary Differential Equations}
+\begin{theorem}[Kawamura, 2010]
+Consider the IVP
+$$
+y'(t)=f(t,y(t)) \quad;\quad y(0)=0.
+$$
+There exists functions $f: [0,1] \times [-1,1] \to \RR$ and  $y: [0,1] \to [-1,1]$  as above such that
+\begin{enumerate}
+\item $f$ is Lipschitz-continuous and polynomial time computable
+\item $y$ is PSPACE-hard.
+\end{enumerate}
+\end{theorem}
+\pause
+  \begin{tcolorbox}[colback=yellow!5,colframe=red!75!black]
+    \Large
+    For analytic right-hand side the problem can be solved in polynomial time.
+    \end{tcolorbox}
 \end{frame}
 \subsection{Analytic Functions and Small Complexity Classes}
 \begin{frame}
@@ -763,26 +767,24 @@ Further we need to compute the coefficients for the power series around $0$.\\
   \end{tcolorbox}
   \end{frame}
 \begin{frame}
-  \frametitle{P-completeness}
+  \frametitle{Future Work: P-completeness}
   Kawamura and Ota also define the notions of reductions and completeness.
+  \pause
   For example they give the following uniform version of a theorem by Ko
   \begin{theorem}
     For the set $M$ of bijective functions in $C[0,1]$, define the $\delta_{\Box INV}$ representation by adding a modulus of continuity for the inverse function to the $\delta_{\Box}$ representation.\\
     The function $Inv: M \to C[0,1],\, Inv(f) \mapsto f^{-1}$ is $(\delta_{\Box INV}, \delta_{\Box})$-FP-complete.
   \end{theorem}
+  \pause
+  Which operations on analytic functions are P-hard?
+  \begin{itemize}
+  \item Initial Value Problem?
+    \item Maximization?
+    \end{itemize}
 \end{frame}
 \begin{frame}
-  \frametitle{Ordinary Differential Equations}
-  Consider the following problem
-\begin{eqnarray*}
-  \dot y(t) &=& F(t, y(t)) \\
-  y(0) &=& 0 
-\end{eqnarray*}
-This is \pspace-hard for general Lipschitz-continuous right hand side function $F$ (Kawamura),
-but polynomial-time computable for analytic $F$.
-
-How does this problem behave in terms of small complexity classes?
- \end{frame}
+  \frametitle{Future Work: P-completeness}
+\end{frame}
 \subsection*{Overview and Future Work}
 \begin{frame}
   \frametitle{Conclusion}
